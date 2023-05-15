@@ -1,0 +1,28 @@
+---
+- name: Install nginx  web server #название плейбука 
+  hosts: all                      #выбор всех хостов 
+  become: yes                     #запуск от рута (become)
+
+
+  vars:                                                              #задаем переменные 
+    source_file: /home/vadim/ansible/MyWebSite/index.html            #переменная source_file( название произвольное) в данном случае указывается путь к файлу html, делается это для того чтобы мы могли локально изменять хтмл файл и загружать изменения на сервер
+    destin_file: /var/www/html/index.html                            #переменная destin_file содержит путь до файла, который мы меняем
+
+
+
+
+
+  tasks:
+  - name: Install nginx
+    apt:  name=nginx state=latest
+
+  - name: Copy my Homepage to Servers
+    copy: src={{ source_file }} dest={{ destin_file }} mode=0555   #указываем уже не просто путь, а переменную, которая содержит этот путь ( используем {{x}} 
+    notify: Restart nginx                       #делаем notify который указывает на handler, это позволяет нам рестартать nginx только в том случае, если файл изменился
+
+  - name: Start service nginx and enable it on every boot
+    service: name=nginx state=started enabled=yes
+
+  handlers:                               #здесь пропысываем этот handler -по сути очередной таск, который вызывается при определенном условии(когда выполняется копирование, если копирование не выполяется то и хендлер не вызывается -> nginx не рестартается.
+   - name: Restart nginx
+    service: name=nginx  state=restarted
