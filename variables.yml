@@ -1,0 +1,42 @@
+---
+- name: Work with variables
+  hosts: all
+  become: yes
+
+  vars:
+    owner_server1: Vadim1
+    owner_server2: Vadim2
+    message1: Hello
+    message2: World
+
+  tasks:
+   - name: TESTIM MODULE DEBUG S ATRIBUTOM VAR  # позволяет вывести переменную 
+     debug:
+       var: message1
+
+   - name: TESTIM MODULE DEBUG S ATRIBUTOM VAR  # позволяет вывести переменную 
+     debug:
+       var: message2
+
+   - name: TESTIM MODULE DEBUG S ATRIBUTOM MSG  # позволяет вывести сообщение, которое может содержать что угодно в т.ч. переменную 
+     debug:
+       msg: "Send: {{ message1}}  {{message2}} - {{owner_server1}}, {{owner_server2}}"
+
+   - name: TESTIM MODULE set_fact  #позволяет обьединить переменные, создав новую из нескольких старых 
+     set_fact: full_message="{{message1}}_{{message2}}"
+
+   - name: vivodim znacheniye novoi peremennoi
+     debug:
+       var: full_message
+
+   - name: Выводим значение переменной, которая используется ansible( модуль setup выводит полный список всех переменных)  # позволяет вывести переменную ansible, список можно вывести модулем setup у каждой системы свои(хар-ки системы)
+     debug:
+       var: ansible_distribution
+
+   - name: Чтобы ansible запомнил вывод какой нибудь шелл команды(присвоил вывод переменной, которую мы потом можем вызвать) используем модуль register после модуля shell
+     shell: uptime
+     register: results
+
+   - name: вывод переменной results полученной через register
+     debug:
+       var: results
