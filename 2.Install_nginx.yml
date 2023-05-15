@@ -1,0 +1,12 @@
+---
+- name: Install nginx  web server
+  hosts: all
+  become: yes
+
+
+  tasks:
+  - name: Install nginx
+    apt:  name=nginx state=latest
+
+  - name: Start service nginx and enable it on every boot
+    service: name=nginx state=started enabled=yes
