@@ -1,0 +1,25 @@
+---
+- name: Install nginx  web server and apache web server
+  hosts: all
+  become: yes
+  vars:
+    source_file: /home/vadim/ansible/MyWebSite/index.html
+    destin_file: /var/www/html/index.html
+  tasks:
+    - block:
+        - apt: name=nginx state=latest
+        - debug: msg="nginx installed"
+        - copy: src={{source_file}} dest={{destin_file}}
+          notify: Restart nginx
+      when: ansible_hostname== "server1"
+    - block:
+        - apt: name=apache2 state=latest
+        - debug: msg="apache2 installed"
+        - copy: src={{source_file}} dest={{destin_file}}
+          notify: Restart Apache2
+      when: ansible_hostname == "server2"
+  handlers:
+    - name: Restart nginx
+      service: name=nginx state=restarted
+    - name: Restart Apache2
+      service: name=apache2 state=restarted
