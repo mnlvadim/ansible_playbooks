@@ -7,7 +7,7 @@ ANSIBLE
              + в нем мы можем обьединять хосты в группы, группы в группы...
             
 Пример:hosts.txt
-<
+```
 [test_DB]
 
 [test_APP]
@@ -27,15 +27,19 @@ server2   ansible_host=192.168.31.42    ansible_user=server2
 
 ansible_ssh_password=password
 
->
+```
 
-         2. ansible.cfg -конфиг файл ansible, в нем мы можем указать различные параметры,
-         САМОЕ ВАЖНОЕ- указать наш inventory файл, чтобы каждый раз не 
-         припысывать ansible -i config.txt + можно указать всякие ключи чтобы их также каждый            раз не писать.
-         Пример: ansible.cfg 
+ 2. ansible.cfg -конфиг файл ansible, в нем мы можем указать различные параметры,
+ САМОЕ ВАЖНОЕ- указать наш inventory файл, чтобы каждый раз не 
+ припысывать ansible -i config.txt + можно указать всякие ключи чтобы их также каждый            раз не писать.
+
+Пример: ansible.cfg 
+```
 [defaults]
 host_key_checking = false  #-убирает чек фингерпринта, дает возможность заходить просто по паролю без ssh key#
 inventory         = hosts.txt   #-указываем наш inventory файл
+
+```
 
 Some interesting commands:
 ansible --version
