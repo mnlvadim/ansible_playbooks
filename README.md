@@ -48,15 +48,22 @@ ansible-inventory --list  - список всех серверов групп и
 ansible-inventory --graph - граф из серверов по группам 
 ```
 
-Модули Ansible 
-https://docs.ansible.com/ansible/2.9/user_guide/modules.html
-Просмотр всех мудулей:ansible-doc -l
-Для запуска модуля: ansible группа -m название модуля        Пример:ansible all -m ping
+Модули Ansible https://docs.ansible.com/ansible/2.9/user_guide/modules.html
+
+Просмотр всех мудулей:
+```
+ansible-doc -l
+```
+Для запуска модуля: 
+```
+ansible группа -m название модуля
+    
+Пример:ansible all -m ping
 -m ping 
 -m setup - инфа о системе 
 -m shell -a "uptime"  -m shell -a "ls /etc" - запуск команд через shell , работает ВСЕ
 -m command -a "ls"    -аналог модуля shell, не не работают пайпы, потоки ввода- вывода , только одна команда, также не работают внтуренние переменные
-
+```
 Модуль copy
 ansible all -m copy -a "src=privet.txt dest=/home mode=777" -b 
 src=  - указываем source к файлу 
