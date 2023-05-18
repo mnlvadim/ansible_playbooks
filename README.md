@@ -7,7 +7,7 @@ ANSIBLE
              + в нем мы можем обьединять хосты в группы, группы в группы...
             
 Пример:hosts.txt
-«=»
+<
 [test_DB]
 
 [test_APP]
@@ -27,7 +27,7 @@ server2   ansible_host=192.168.31.42    ansible_user=server2
 
 ansible_ssh_password=password
 
-«=»
+>
 
          2. ansible.cfg -конфиг файл ansible, в нем мы можем указать различные параметры,
          САМОЕ ВАЖНОЕ- указать наш inventory файл, чтобы каждый раз не 
