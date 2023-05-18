@@ -42,9 +42,11 @@ inventory         = hosts.txt   #-указываем наш inventory файл
 ```
 
 Some interesting commands:
+```
 ansible --version
 ansible-inventory --list  - список всех серверов групп и тд
 ansible-inventory --graph - граф из серверов по группам 
+```
 
 Модули Ansible 
 https://docs.ansible.com/ansible/2.9/user_guide/modules.html
